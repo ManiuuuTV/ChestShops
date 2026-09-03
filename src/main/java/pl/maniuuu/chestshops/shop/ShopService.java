@@ -15,6 +15,7 @@ import pl.maniuuu.chestshops.ChestShopsPlugin;
 import pl.maniuuu.chestshops.config.Messages;
 import pl.maniuuu.chestshops.config.ShopSettings;
 import pl.maniuuu.chestshops.economy.EconomyService;
+import pl.maniuuu.chestshops.menu.ShopMenu;
 import pl.maniuuu.chestshops.util.Containers;
 import pl.maniuuu.chestshops.util.Text;
 
@@ -25,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -243,6 +245,7 @@ public final class ShopService {
             economy.deposit(shop.owner(), price);
         }
         player.getInventory().addItem(Containers.split(template, amount));
+        shop.stats().recordSale(amount, price);
 
         messages.send(player, "transaction.bought",
                 Text.number("amount", amount),
@@ -301,6 +304,7 @@ public final class ShopService {
             container.addItem(Containers.split(template, amount));
         }
         economy.deposit(player.getUniqueId(), price);
+        shop.stats().recordPurchase(amount, price);
 
         messages.send(player, "transaction.sold",
                 Text.number("amount", amount),
@@ -330,6 +334,31 @@ public final class ShopService {
                 Text.text("location", shop.sign().toString())));
     }
 
+    public void openMenu(Player player, Shop shop) {
+        new ShopMenu(this, shop).open(player);
+    }
+
+    /** Shops selling {@code material} to players, cheapest per item first. */
+    public List<Shop> cheapestOffers(Material material, int limit) {
+        return manager.all().stream()
+                .filter(Shop::buyEnabled)
+                .filter(shop -> shop.item().getType() == material)
+                .filter(shop -> shop.admin() || stock(shop) >= shop.amount())
+                .sorted(Comparator.comparingDouble(Shop::unitBuyPrice))
+                .limit(limit)
+                .toList();
+    }
+
+    /** Shops buying {@code material} from players, best paying per item first. */
+    public List<Shop> bestBuyers(Material material, int limit) {
+        return manager.all().stream()
+                .filter(Shop::sellEnabled)
+                .filter(shop -> shop.item().getType() == material)
+                .sorted(Comparator.comparingDouble(Shop::unitSellPrice).reversed())
+                .limit(limit)
+                .toList();
+    }
+
     // ------------------------------------------------------------------ helpers
 
     public boolean isOwner(Player player, Shop shop) {
@@ -355,7 +384,7 @@ public final class ShopService {
         return item.effectiveName();
     }
 
-    private Component priceOrDash(double price) {
+    public Component priceOrDash(double price) {
         return price < 0 ? Text.parse(settings.disabledPriceText()) : money(price);
     }
 

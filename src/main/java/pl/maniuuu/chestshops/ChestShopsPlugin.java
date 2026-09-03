@@ -11,6 +11,7 @@ import pl.maniuuu.chestshops.economy.InternalEconomyService;
 import pl.maniuuu.chestshops.economy.VaultEconomyService;
 import pl.maniuuu.chestshops.listener.ShopCreationListener;
 import pl.maniuuu.chestshops.listener.ShopInteractionListener;
+import pl.maniuuu.chestshops.listener.ShopMenuListener;
 import pl.maniuuu.chestshops.listener.ShopProtectionListener;
 import pl.maniuuu.chestshops.shop.ShopManager;
 import pl.maniuuu.chestshops.shop.ShopService;
@@ -44,6 +45,7 @@ public final class ChestShopsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ShopCreationListener(this, shopService), this);
         Bukkit.getPluginManager().registerEvents(new ShopInteractionListener(shopService), this);
         Bukkit.getPluginManager().registerEvents(new ShopProtectionListener(shopService), this);
+        Bukkit.getPluginManager().registerEvents(new ShopMenuListener(shopService), this);
 
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event ->
                 new ChestShopsCommand(this, shopService).register(event.registrar()));

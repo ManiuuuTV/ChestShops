@@ -27,6 +27,8 @@ interaction:
   buy: LEFT_CLICK
   sell: RIGHT_CLICK
   info: SHIFT_LEFT_CLICK
+  # Menu (GUI) sklepu
+  menu: SHIFT_RIGHT_CLICK
 
 protection:
   containers: true

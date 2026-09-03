@@ -30,6 +30,7 @@ Domyślne akcje (konfigurowalne w `interaction`):
 | lewy klik | kupno |
 | prawy klik | sprzedaż |
 | shift + lewy klik | informacje o sklepie |
+| shift + prawy klik | GUI sklepu (podgląd towaru, stan, przyciski kup/sprzedaj) |
 
 Sklepy admina (`[adminsklep]`) nie potrzebują skrzyni — mają nieskończony towar i nie ruszają salda właściciela.
 
@@ -43,6 +44,9 @@ Sklepy admina (`[adminsklep]`) nie potrzebują skrzyni — mają nieskończony t
 | `/cshop price <kupno> <sprzedaz>` | zmiana cen (`-1` wyłącza stronę transakcji) |
 | `/cshop amount <ilosc>` | zmiana ilości towaru |
 | `/cshop list` | lista twoich sklepów |
+| `/cshop menu` | GUI sklepu, na który patrzysz |
+| `/cshop find <przedmiot>` | najtańsze oferty kupna i najlepsze skupy na serwerze |
+| `/cshop stats` | statystyki sklepu, na który patrzysz (lub suma twoich sklepów) |
 | `/cshop balance` | stan konta |
 | `/cshop reload` | przeładowanie konfiguracji |
 
@@ -65,7 +69,7 @@ Aliasy: `/chestshops`, `/cshop`, `/cs`.
 
 ## Dane
 
-- `plugins/ChestShops/shops.json` — sklepy (zapis atomowy, autozapis co `storage.auto-save-seconds`),
+- `plugins/ChestShops/shops.json` — sklepy wraz ze statystykami sprzedaży (zapis atomowy, autozapis co `storage.auto-save-seconds`),
 - `plugins/ChestShops/economy.json` — salda wbudowanej ekonomii (tylko bez Vaulta),
 - `plugins/ChestShops/transactions.log` — log transakcji.
 

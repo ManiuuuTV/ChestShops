@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import pl.maniuuu.chestshops.shop.BlockKey;
 import pl.maniuuu.chestshops.shop.Shop;
 import pl.maniuuu.chestshops.shop.ShopKind;
+import pl.maniuuu.chestshops.shop.ShopStats;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -93,6 +94,11 @@ public final class JsonShopStorage implements ShopStorage {
         int amount;
         double buyPrice;
         double sellPrice;
+        long itemsSold;
+        long itemsBought;
+        double earned;
+        double spent;
+        long transactions;
 
         static ShopRecord from(Shop shop) {
             ShopRecord record = new ShopRecord();
@@ -113,6 +119,11 @@ public final class JsonShopStorage implements ShopStorage {
             record.amount = shop.amount();
             record.buyPrice = shop.buyPrice();
             record.sellPrice = shop.sellPrice();
+            record.itemsSold = shop.stats().itemsSold();
+            record.itemsBought = shop.stats().itemsBought();
+            record.earned = shop.stats().earned();
+            record.spent = shop.stats().spent();
+            record.transactions = shop.stats().transactions();
             return record;
         }
 
@@ -122,8 +133,9 @@ public final class JsonShopStorage implements ShopStorage {
             BlockKey containerKey = containerX == null ? null
                     : new BlockKey(worldId, containerX, containerY, containerZ);
             ItemStack stack = ItemStack.deserializeBytes(Base64.getDecoder().decode(item));
+            ShopStats stats = new ShopStats(itemsSold, itemsBought, earned, spent, transactions);
             return new Shop(UUID.fromString(id), UUID.fromString(owner), ownerName, ShopKind.valueOf(kind),
-                    signKey, containerKey, stack, amount, buyPrice, sellPrice);
+                    signKey, containerKey, stack, amount, buyPrice, sellPrice, stats);
         }
     }
 }
