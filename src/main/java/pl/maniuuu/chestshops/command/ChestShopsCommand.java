@@ -2,6 +2,7 @@ package pl.maniuuu.chestshops.command;
 
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -31,49 +32,68 @@ public final class ChestShopsCommand {
     }
 
     public void register(Commands registrar) {
+        Command<CommandSourceStack> info = context -> withTargetShop(context, (player, shop) -> {
+            shops.info(player, shop);
+            return 1;
+        });
+        Command<CommandSourceStack> remove = context -> withTargetShop(context, (player, shop) -> {
+            if (!shops.canModify(player, shop)) {
+                shops.messages().send(player, "error.not-your-shop");
+                return 0;
+            }
+            shops.manager().remove(shop);
+            shops.messages().send(player, "shop.removed");
+            return 1;
+        });
+        Command<CommandSourceStack> menu = context -> withTargetShop(context, (player, shop) -> {
+            shops.openMenu(player, shop);
+            return 1;
+        });
+
         LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("chestshops")
-                .then(Commands.literal("reload")
-                        .requires(source -> source.getSender().hasPermission("chestshops.admin"))
-                        .executes(this::reload))
-                .then(Commands.literal("info").executes(context -> withTargetShop(context, (player, shop) -> {
-                    shops.info(player, shop);
-                    return 1;
-                })))
-                .then(Commands.literal("remove").executes(context -> withTargetShop(context, (player, shop) -> {
-                    if (!shops.canModify(player, shop)) {
-                        shops.messages().send(player, "error.not-your-shop");
-                        return 0;
-                    }
-                    shops.manager().remove(shop);
-                    shops.messages().send(player, "shop.removed");
-                    return 1;
-                })))
-                .then(Commands.literal("list").executes(this::list))
-                .then(Commands.literal("price")
-                        .then(Commands.argument("buy", DoubleArgumentType.doubleArg(-1))
-                                .then(Commands.argument("sell", DoubleArgumentType.doubleArg(-1))
-                                        .executes(this::price))))
-                .then(Commands.literal("amount")
-                        .then(Commands.argument("amount", IntegerArgumentType.integer(1, 2304))
-                                .executes(this::amount)))
-                .then(Commands.literal("menu").executes(context -> withTargetShop(context, (player, shop) -> {
-                    shops.openMenu(player, shop);
-                    return 1;
-                })))
-                .then(Commands.literal("stats").executes(this::stats))
-                .then(Commands.literal("find")
-                        .then(Commands.argument("przedmiot", ArgumentTypes.itemStack())
-                                .executes(this::find)))
-                .then(Commands.literal("balance").executes(this::balance))
                 .executes(this::help);
-        registrar.register(root.build(), "Sklepy graczy na skrzynkach", List.of("cshop", "cs"));
+        for (String name : List.of("reload", "przeladuj")) {
+            root.then(Commands.literal(name)
+                    .requires(source -> source.getSender().hasPermission("chestshops.admin"))
+                    .executes(this::reload));
+        }
+        simple(root, info, "info", "informacje");
+        simple(root, remove, "remove", "usun");
+        simple(root, menu, "menu");
+        simple(root, this::list, "list", "lista");
+        simple(root, this::stats, "stats", "statystyki");
+        simple(root, this::balance, "balance", "stan", "konto");
+        for (String name : List.of("price", "cena")) {
+            root.then(Commands.literal(name)
+                    .then(Commands.argument("buy", DoubleArgumentType.doubleArg(-1))
+                            .then(Commands.argument("sell", DoubleArgumentType.doubleArg(-1))
+                                    .executes(this::price))));
+        }
+        for (String name : List.of("amount", "ilosc")) {
+            root.then(Commands.literal(name)
+                    .then(Commands.argument("amount", IntegerArgumentType.integer(1, 2304))
+                            .executes(this::amount)));
+        }
+        for (String name : List.of("find", "szukaj")) {
+            root.then(Commands.literal(name)
+                    .then(Commands.argument("przedmiot", ArgumentTypes.itemStack())
+                            .executes(this::find)));
+        }
+        registrar.register(root.build(), "Sklepy graczy na skrzynkach", List.of("cshop", "cs", "sklep"));
+    }
+
+    private void simple(LiteralArgumentBuilder<CommandSourceStack> root, Command<CommandSourceStack> action,
+                        String... names) {
+        for (String name : names) {
+            root.then(Commands.literal(name).executes(action));
+        }
     }
 
     private int help(CommandContext<CommandSourceStack> context) {
         CommandSender sender = context.getSource().getSender();
         for (String line : List.of("help.header", "help.create", "help.info", "help.menu", "help.remove",
                 "help.price", "help.amount", "help.list", "help.find", "help.stats", "help.balance",
-                "help.reload")) {
+                "help.withdraw", "help.deposit", "help.reload")) {
             sender.sendMessage(shops.messages().get(line));
         }
         return 1;

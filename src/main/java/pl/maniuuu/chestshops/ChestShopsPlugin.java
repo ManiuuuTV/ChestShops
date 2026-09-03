@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.maniuuu.chestshops.command.ChestShopsCommand;
 import pl.maniuuu.chestshops.config.Messages;
 import pl.maniuuu.chestshops.config.ShopSettings;
+import pl.maniuuu.chestshops.command.BanknoteCommand;
+import pl.maniuuu.chestshops.economy.BanknoteService;
 import pl.maniuuu.chestshops.economy.EconomyService;
 import pl.maniuuu.chestshops.economy.InternalEconomyService;
 import pl.maniuuu.chestshops.economy.VaultEconomyService;
@@ -47,8 +49,11 @@ public final class ChestShopsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ShopProtectionListener(shopService), this);
         Bukkit.getPluginManager().registerEvents(new ShopMenuListener(shopService), this);
 
-        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event ->
-                new ChestShopsCommand(this, shopService).register(event.registrar()));
+        BanknoteService banknotes = new BanknoteService(this, shopService);
+        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
+            new ChestShopsCommand(this, shopService).register(event.registrar());
+            new BanknoteCommand(shopService, banknotes).register(event.registrar());
+        });
 
         getServer().getAsyncScheduler().runAtFixedRate(this, task -> shopManager.saveIfDirty(),
                 settings.autoSaveSeconds(), settings.autoSaveSeconds(), java.util.concurrent.TimeUnit.SECONDS);

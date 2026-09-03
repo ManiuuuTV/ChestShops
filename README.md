@@ -48,9 +48,17 @@ Sklepy admina (`[adminsklep]`) nie potrzebują skrzyni — mają nieskończony t
 | `/cshop find <przedmiot>` | najtańsze oferty kupna i najlepsze skupy na serwerze |
 | `/cshop stats` | statystyki sklepu, na który patrzysz (lub suma twoich sklepów) |
 | `/cshop balance` | stan konta |
+| `/wyplac <kwota>` | zamienia kasę z konta na banknot (papierek) w ręce |
+| `/wplac` | wpłaca trzymany banknot z powrotem na konto |
 | `/cshop reload` | przeładowanie konfiguracji |
 
-Aliasy: `/chestshops`, `/cshop`, `/cs`.
+Aliasy komendy głównej: `/chestshops`, `/cshop`, `/cs`, `/sklep`.
+Podkomendy mają polskie odpowiedniki: `informacje`, `usun`, `lista`, `cena`, `ilosc`, `szukaj`, `statystyki`, `stan`, `przeladuj`.
+
+### Banknoty
+
+`/wyplac 500` ściąga 500 z konta i daje papierek z wartością zapisaną w PDC — można go dać innemu graczowi, włożyć do skrzyni albo sprzedać.
+`/wplac` z banknotem w ręce wpłaca cały stack z powrotem na konto. Minimalną kwotę ustawia `banknote.min-amount`.
 
 ## Uprawnienia
 
@@ -59,6 +67,7 @@ Aliasy: `/chestshops`, `/cshop`, `/cs`.
 | `chestshops.use` | wszyscy | handel w sklepach |
 | `chestshops.create` | wszyscy | zakładanie sklepów |
 | `chestshops.admin` | op | sklepy admina, `/cshop reload`, omijanie ochrony |
+| `chestshops.banknote` | wszyscy | `/wyplac` i `/wplac` |
 | `chestshops.limit.bypass` | op | omijanie limitu sklepów |
 
 ## Ochrona

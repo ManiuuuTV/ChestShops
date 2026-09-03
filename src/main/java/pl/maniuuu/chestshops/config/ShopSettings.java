@@ -25,7 +25,8 @@ public record ShopSettings(
         List<String> signLayout,
         List<String> adminSignLayout,
         String disabledPriceText,
-        int internalStartingBalance
+        int internalStartingBalance,
+        double banknoteMinAmount
 ) {
 
     public static ShopSettings load(FileConfiguration config) {
@@ -48,7 +49,8 @@ public record ShopSettings(
                 config.getStringList("sign.player"),
                 config.getStringList("sign.admin"),
                 config.getString("sign.disabled-price", "<dark_gray>-</dark_gray>"),
-                config.getInt("economy.internal.starting-balance", 500)
+                config.getInt("economy.internal.starting-balance", 500),
+                config.getDouble("banknote.min-amount", 1.0D)
         );
     }
 

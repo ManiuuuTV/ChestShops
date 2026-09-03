@@ -13,6 +13,9 @@ permissions:
   chestshops.create:
     description: Zakladanie wlasnych sklepow.
     default: true
+  chestshops.banknote:
+    description: Wyplacanie i wplacanie banknotow (/wyplac, /wplac).
+    default: true
   chestshops.admin:
     description: Sklepy administracyjne, /cshop reload i omijanie ochrony.
     default: op
