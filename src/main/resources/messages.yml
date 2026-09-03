@@ -42,6 +42,15 @@ stats:
   shop: "<gray>Statystyki sklepu</gray> <white><item></white>\n<gray>Sprzedano graczom:</gray> <white><sold></white> <dark_gray>|</dark_gray> <gray>Skupiono:</gray> <white><bought></white>\n<gray>Zarobek:</gray> <earned> <dark_gray>|</dark_gray> <gray>Wydatki:</gray> <spent> <dark_gray>|</dark_gray> <gray>Bilans:</gray> <profit>\n<gray>Transakcje:</gray> <white><transactions></white>"
   total: "<gray>Twoje sklepy</gray> <dark_gray>(<shops>)</dark_gray>\n<gray>Sprzedano graczom:</gray> <white><sold></white> <dark_gray>|</dark_gray> <gray>Skupiono:</gray> <white><bought></white>\n<gray>Zarobek:</gray> <earned> <dark_gray>|</dark_gray> <gray>Wydatki:</gray> <spent> <dark_gray>|</dark_gray> <gray>Bilans:</gray> <profit>\n<gray>Transakcje:</gray> <white><transactions></white>"
 
+banknote:
+  item-name: "<gradient:#ffd700:#ffae00><bold>Banknot</bold></gradient> <dark_gray>-</dark_gray> <price>"
+  item-lore: "<gray>Wystawca:</gray> <white><player></white>\n<gray>Trzymaj w rece i wpisz</gray> <white>/wplac</white>\n<dark_gray>Banknot ChestShops</dark_gray>"
+  withdrawn: "<green>Wyplacono</green> <price> <green>z konta na banknot.</green>"
+  deposited: "<green>Wplacono</green> <price> <green>na konto.</green>"
+  not-a-note: "<red>Musisz trzymac banknot w rece.</red>"
+  too-small: "<red>Najmniejsza kwota banknotu to <price>.</red>"
+  deposit-failed: "<red>Nie udalo sie wplacic banknotu na konto.</red>"
+
 economy:
   balance: "<gray>Twoj stan konta:</gray> <balance>"
 
@@ -79,5 +88,7 @@ help:
   menu: "<white>/cshop menu</white> <dark_gray>-</dark_gray> <gray>otwiera GUI sklepu (shift + PPM na tabliczce)</gray>"
   find: "<white>/cshop find [przedmiot]</white> <dark_gray>-</dark_gray> <gray>szuka najlepszych ofert na serwerze</gray>"
   stats: "<white>/cshop stats</white> <dark_gray>-</dark_gray> <gray>statystyki sklepu lub wszystkich twoich sklepow</gray>"
+  withdraw: "<white>/wyplac [kwota]</white> <dark_gray>-</dark_gray> <gray>zamienia kase z konta na banknot</gray>"
+  deposit: "<white>/wplac</white> <dark_gray>-</dark_gray> <gray>wplaca trzymany banknot na konto</gray>"
   balance: "<white>/cshop balance</white> <dark_gray>-</dark_gray> <gray>stan konta</gray>"
   reload: "<white>/cshop reload</white> <dark_gray>-</dark_gray> <gray>przeladowanie konfiguracji</gray>"
