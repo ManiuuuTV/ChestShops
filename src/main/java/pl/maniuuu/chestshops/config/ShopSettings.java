@@ -18,13 +18,15 @@ public record ShopSettings(
         ClickAction buyAction,
         ClickAction sellAction,
         ClickAction infoAction,
+        ClickAction menuAction,
         int autoSaveSeconds,
         boolean logTransactions,
         String currencyFormat,
         List<String> signLayout,
         List<String> adminSignLayout,
         String disabledPriceText,
-        int internalStartingBalance
+        int internalStartingBalance,
+        double banknoteMinAmount
 ) {
 
     public static ShopSettings load(FileConfiguration config) {
@@ -40,13 +42,15 @@ public record ShopSettings(
                 ClickAction.parse(config.getString("interaction.buy", "LEFT_CLICK")),
                 ClickAction.parse(config.getString("interaction.sell", "RIGHT_CLICK")),
                 ClickAction.parse(config.getString("interaction.info", "SHIFT_LEFT_CLICK")),
+                ClickAction.parse(config.getString("interaction.menu", "SHIFT_RIGHT_CLICK")),
                 Math.max(30, config.getInt("storage.auto-save-seconds", 300)),
                 config.getBoolean("storage.log-transactions", true),
                 config.getString("economy.currency-format", "<gold>%.2f$</gold>"),
                 config.getStringList("sign.player"),
                 config.getStringList("sign.admin"),
                 config.getString("sign.disabled-price", "<dark_gray>-</dark_gray>"),
-                config.getInt("economy.internal.starting-balance", 500)
+                config.getInt("economy.internal.starting-balance", 500),
+                config.getDouble("banknote.min-amount", 1.0D)
         );
     }
 

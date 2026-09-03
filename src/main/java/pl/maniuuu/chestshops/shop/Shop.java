@@ -16,9 +16,15 @@ public final class Shop {
     private int amount;
     private double buyPrice;
     private double sellPrice;
+    private final ShopStats stats;
 
     public Shop(UUID id, UUID owner, String ownerName, ShopKind kind, BlockKey sign, BlockKey container,
                 ItemStack item, int amount, double buyPrice, double sellPrice) {
+        this(id, owner, ownerName, kind, sign, container, item, amount, buyPrice, sellPrice, new ShopStats());
+    }
+
+    public Shop(UUID id, UUID owner, String ownerName, ShopKind kind, BlockKey sign, BlockKey container,
+                ItemStack item, int amount, double buyPrice, double sellPrice, ShopStats stats) {
         this.id = id;
         this.owner = owner;
         this.ownerName = ownerName;
@@ -29,6 +35,11 @@ public final class Shop {
         this.amount = amount;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
+        this.stats = stats;
+    }
+
+    public ShopStats stats() {
+        return stats;
     }
 
     public UUID id() {
@@ -94,6 +105,15 @@ public final class Shop {
 
     public boolean sellEnabled() {
         return sellPrice >= 0;
+    }
+
+    /** Price of a single item, used for comparing offers across shops. */
+    public double unitBuyPrice() {
+        return buyEnabled() ? buyPrice / amount : Double.MAX_VALUE;
+    }
+
+    public double unitSellPrice() {
+        return sellEnabled() ? sellPrice / amount : -1;
     }
 
     public ItemStack tradeStack() {

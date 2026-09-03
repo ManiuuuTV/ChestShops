@@ -27,6 +27,12 @@ interaction:
   buy: LEFT_CLICK
   sell: RIGHT_CLICK
   info: SHIFT_LEFT_CLICK
+  # Menu (GUI) sklepu
+  menu: SHIFT_RIGHT_CLICK
+
+banknote:
+  # Minimalna kwota, ktora mozna wyplacic na banknot (/wyplac)
+  min-amount: 1.0
 
 protection:
   containers: true

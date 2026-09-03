@@ -55,7 +55,9 @@ public final class ShopInteractionListener implements Listener {
         }
 
         ClickAction action = ClickAction.of(event.getAction(), player.isSneaking());
-        if (action == shops.settings().infoAction()) {
+        if (action == shops.settings().menuAction()) {
+            shops.openMenu(player, shop);
+        } else if (action == shops.settings().infoAction()) {
             shops.info(player, shop);
         } else if (action == shops.settings().buyAction()) {
             shops.buy(player, shop);
