@@ -1,0 +1,27 @@
+name: ChestShops
+version: '${version}'
+main: pl.maniuuu.chestshops.ChestShopsPlugin
+api-version: '1.21'
+description: Sklepy graczy na skrzynkach z pelnym wsparciem MiniMessage.
+author: Maniuuu
+website: https://github.com/ManiuuuTV
+default-permission: OP
+permissions:
+  chestshops.use:
+    description: Handel w sklepach.
+    default: true
+  chestshops.create:
+    description: Zakladanie wlasnych sklepow.
+    default: true
+  chestshops.admin:
+    description: Sklepy administracyjne, /cshop reload i omijanie ochrony.
+    default: op
+  chestshops.limit.bypass:
+    description: Omijanie limitu sklepow.
+    default: op
+dependencies:
+  server:
+    Vault:
+      load: BEFORE
+      required: false
+      join-classpath: true

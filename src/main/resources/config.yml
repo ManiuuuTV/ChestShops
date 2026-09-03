@@ -1,0 +1,51 @@
+# ChestShops - sklepy graczy na skrzynkach
+# Wszystkie teksty korzystaja ze skladni MiniMessage: https://docs.advntr.dev/minimessage/format.html
+
+creation:
+  # Slowa kluczowe w pierwszej linii tabliczki (bez nawiasow kwadratowych - one sa opcjonalne).
+  shop-keywords:
+    - shop
+    - sklep
+  admin-keywords:
+    - adminshop
+    - adminsklep
+  # Oplata za zalozenie sklepu (0 = wylaczone).
+  fee: 0.0
+  # Limit sklepow na gracza (0 = bez limitu, uprawnienie chestshops.limit.bypass omija limit).
+  max-shops-per-player: 0
+
+economy:
+  # Gdy false lub brak dostawcy Vault - plugin korzysta z wbudowanej ekonomii.
+  use-vault: true
+  # Format waluty: %.2f zostanie podmienione na kwote, reszta to MiniMessage.
+  currency-format: "<gold>%.2f$</gold>"
+  internal:
+    starting-balance: 500
+
+interaction:
+  # LEFT_CLICK, RIGHT_CLICK, SHIFT_LEFT_CLICK, SHIFT_RIGHT_CLICK lub DISABLED
+  buy: LEFT_CLICK
+  sell: RIGHT_CLICK
+  info: SHIFT_LEFT_CLICK
+
+protection:
+  containers: true
+  hoppers: true
+  explosions: true
+
+storage:
+  auto-save-seconds: 300
+  log-transactions: true
+
+sign:
+  disabled-price: "<dark_gray>-</dark_gray>"
+  player:
+    - "<dark_gray>[</dark_gray><gradient:#ffd700:#ffae00><bold>SKLEP</bold></gradient><dark_gray>]</dark_gray>"
+    - "<gray><owner></gray>"
+    - "<green>K <buy></green> <dark_gray>|</dark_gray> <red>S <sell></red>"
+    - "<aqua><amount>x</aqua> <white><item></white>"
+  admin:
+    - "<dark_gray>[</dark_gray><gradient:#ff5f6d:#ffc371><bold>ADMIN</bold></gradient><dark_gray>]</dark_gray>"
+    - "<gray>sklep serwerowy</gray>"
+    - "<green>K <buy></green> <dark_gray>|</dark_gray> <red>S <sell></red>"
+    - "<aqua><amount>x</aqua> <white><item></white>"

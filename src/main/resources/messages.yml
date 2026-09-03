@@ -1,0 +1,58 @@
+# Wszystkie wiadomosci uzywaja MiniMessage.
+prefix: "<gradient:#ffd700:#ffae00><bold>Sklepy</bold></gradient> <dark_gray>»</dark_gray> "
+
+plugin:
+  reloaded: "<green>Konfiguracja przeladowana.</green>"
+
+shop:
+  created: "<green>Sklep utworzony:</green> <white><amount>x <item></white> <dark_gray>|</dark_gray> <gray>kupno</gray> <buy> <dark_gray>|</dark_gray> <gray>sprzedaz</gray> <sell>"
+  fee-charged: "<gray>Pobrano oplate: <price></gray>"
+  removed: "<yellow>Sklep zostal usuniety.</yellow>"
+  updated: "<green>Sklep zaktualizowany.</green>"
+  info-header: "<gradient:#ffd700:#ffae00><bold>Informacje o sklepie</bold></gradient>"
+  info-body: "<gray>Wlasciciel:</gray> <white><owner></white> <dark_gray>(<kind>)</dark_gray>\n<gray>Towar:</gray> <white><amount>x <item></white>\n<gray>Kupno:</gray> <buy> <dark_gray>|</dark_gray> <gray>Sprzedaz:</gray> <sell>\n<gray>Stan magazynu:</gray> <white><stock></white>\n<gray>Lokalizacja:</gray> <white><location></white>"
+  list-header: "<gray>Twoje sklepy</gray> <dark_gray>(<count>)</dark_gray>"
+  list-entry: "<dark_gray>•</dark_gray> <white><amount>x <item></white> <dark_gray>|</dark_gray> <green><buy></green> <dark_gray>/</dark_gray> <red><sell></red> <dark_gray>|</dark_gray> <gray>stan <stock>, <location></gray>"
+
+transaction:
+  bought: "<green>Kupiles</green> <white><amount>x <item></white> <green>za</green> <price> <gray>od <owner></gray>"
+  sold: "<green>Sprzedales</green> <white><amount>x <item></white> <green>za</green> <price> <gray>do <owner></gray>"
+  owner-bought: "<gray><player> sprzedal ci</gray> <white><amount>x <item></white> <gray>za</gray> <price>"
+  owner-sold: "<gray><player> kupil od ciebie</gray> <white><amount>x <item></white> <gray>za</gray> <price>"
+
+economy:
+  balance: "<gray>Twoj stan konta:</gray> <balance>"
+
+error:
+  no-permission: "<red>Nie masz uprawnien do tej akcji.</red>"
+  no-container: "<red>Tabliczka musi byc na skrzyni, beczce lub innym pojemniku.</red>"
+  container-taken: "<red>Ten pojemnik nalezy juz do innego sklepu.</red>"
+  container-missing: "<red>Pojemnik tego sklepu zniknal.</red>"
+  protected-container: "<red>Ten pojemnik nalezy do cudzego sklepu.</red>"
+  not-your-shop: "<red>To nie jest twoj sklep.</red>"
+  own-shop: "<red>Nie mozesz handlowac we wlasnym sklepie.</red>"
+  limit-reached: "<red>Osiagnales limit sklepow (<limit>).</red>"
+  unknown-item: "<red>Nieznany przedmiot: <input></red>"
+  invalid-amount: "<red>Nieprawidlowa ilosc w drugiej linii.</red>"
+  invalid-price: "<red>Nieprawidlowa cena. Uzyj np. <white>B 100 S 50</white>.</red>"
+  buy-disabled: "<red>Ten sklep nie sprzedaje tego towaru.</red>"
+  sell-disabled: "<red>Ten sklep nie skupuje tego towaru.</red>"
+  out-of-stock: "<red>Brak towaru w sklepie.</red>"
+  shop-full: "<red>Magazyn sklepu jest pelny.</red>"
+  player-inventory-full: "<red>Nie masz miejsca w ekwipunku.</red>"
+  player-no-items: "<red>Potrzebujesz <amount>x <item>.</red>"
+  no-money: "<red>Potrzebujesz <price>, aby to kupic.</red>"
+  no-money-fee: "<red>Potrzebujesz <price> na oplate zalozenia sklepu.</red>"
+  owner-no-money: "<red>Wlasciciel sklepu nie ma srodkow na skup.</red>"
+  no-shop-in-sight: "<red>Popatrz na tabliczke sklepu.</red>"
+
+help:
+  header: "<gradient:#ffd700:#ffae00><bold>ChestShops</bold></gradient> <gray>- pomoc</gray>"
+  create: "<gray>Tabliczka:</gray> <white>[sklep]</white> <dark_gray>/</dark_gray> <white>ilosc</white> <dark_gray>/</dark_gray> <white>B 100 S 50</white> <dark_gray>/</dark_gray> <white>przedmiot lub pusto</white>"
+  info: "<white>/cshop info</white> <dark_gray>-</dark_gray> <gray>szczegoly sklepu, na ktory patrzysz</gray>"
+  remove: "<white>/cshop remove</white> <dark_gray>-</dark_gray> <gray>usuwa sklep</gray>"
+  price: "<white>/cshop price [kupno] [sprzedaz]</white> <dark_gray>-</dark_gray> <gray>zmienia ceny (-1 wylacza)</gray>"
+  amount: "<white>/cshop amount [ilosc]</white> <dark_gray>-</dark_gray> <gray>zmienia ilosc towaru</gray>"
+  list: "<white>/cshop list</white> <dark_gray>-</dark_gray> <gray>lista twoich sklepow</gray>"
+  balance: "<white>/cshop balance</white> <dark_gray>-</dark_gray> <gray>stan konta</gray>"
+  reload: "<white>/cshop reload</white> <dark_gray>-</dark_gray> <gray>przeladowanie konfiguracji</gray>"
